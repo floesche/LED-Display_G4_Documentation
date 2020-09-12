@@ -1,6 +1,6 @@
 ---
 title: Components
-parent: Development
+parent: Setup
 grand_parent: Generation 4
 nav_order: 1
 ---
@@ -11,14 +11,41 @@ nav_order: 1
 
 # System Components
 
-The prototype G4 system consists of four components:
+A Generation 4 (G4) modular LED display consists of the following functional components:
 
-- Display panels - 20 display panels, each panel has a four 8x8 20mm LED matrices.
-- Test Arena - configurable planar arena which can accommodate 6 columns of panels.  
-- Demo Controller - simple Arduino Uno based controller which shows a moving stripe pattern.
-- 5V power supply (2.1mm center positive).
+- Panels
+- Arena
+- Controller
 
-![](../assets/coleman_bundle.png)
+On this page we show different versions and additional equipment that can be used in conjunction with the G4 arena.
+
+## G4 hardware set
+
+Around 2018, a more complete setup contains the following components:
+
+- Panels:
+    - custom made driver boards with 16×16 LED on 40×40mm²
+    - comm board v0.3
+- Arena: 12/12 (pictured below) or 12/18 arena
+- Controller: FPGA based PCIe card with G4 Host software
+    - requires interconnect board and VHDI cable
+    - breakout board for data recording
+- 5V 10A power supply
+
+![G4 hardware set around 2018](../assets/G4_hardware-overview.jpg)
+
+## Prototype
+
+The initial prototype from 2014 for the G4 system consisted of the following parts:
+
+- Panels: 20 display panels with 2 PCB
+    - each driver board with four 8×8 LED matrices measuring 20×20mm²
+    - comm board with [ATmega328](https://www.microchip.com/wwwproducts/en/ATmega328)
+- Arena: configurable planar arena which can accommodate 6 columns of panels
+- Controller: [Arduino Uno](https://en.wikipedia.org/wiki/Arduino_Uno) based demo controller which shows a moving stripe pattern
+- Cables: USB and 5V power supply (2.1mm center positive)
+
+![Prototype G4 hardware set around 2014](../assets/coleman_bundle.png)
 
 
 A fork of the repository with design files for G4 panels hardware can be found [here](https://github.com/floesche/panels_g4_hardware). Note, the design files for the PCBs use the [kicad EDA](https://kicad-pcb.org/) software suite.
@@ -55,7 +82,9 @@ send it on to the driver sub-panel (via I2C).
 
 [download PCB Schematic](../assets/comm.pdf)
 
-# Test Arena 
+# Arena
+
+## Test Arena 
 
 The test arena is used to connect the panels with the controller and to supply
 power to the panels. There are three headers which can be used to connect the
