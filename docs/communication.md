@@ -88,7 +88,6 @@ i2cMessage[7] = pixel[1][2] | (pixel[1][3] << 4);
 i2cMessage[32] = pixel[7][6] | (pixel[7][7] << 4);
 ```
 
-
 ### I2C: 2-level Gray Scale
 
 For 2-level gray scale each pixels is encoded by one bit so that each byte of the message
@@ -121,7 +120,6 @@ The bytes in the SPI  message are  as follows:
 
 The total message length is 4*33 = 132 bytes.
 
-
 ### SPI: 2-level Gray Scale
 
 The bytes in the SPI message is as follows:
@@ -135,11 +133,8 @@ The total message length is 4*9 = 36 bytes.
 
 ### SPI: Parameters 
 
-
 | Parameter       | Value         |
 | --------------- | ------------- |
 | Bit Order       | MSBFIRST      |
 | Data Mode       | Mode 0        |
 | Maximum Clock   | 4Mhz          |
-
-

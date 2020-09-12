@@ -6,8 +6,6 @@ has_children: true
 
 # Introduction
 
-
-
 The fourth generation (G4) Panels system, currently in prototype stage, is a modular
 display for designed for insect vision research. The G4 design is largely inspired
 by the earlier Panels G3 design, however there are a few key differences: 
