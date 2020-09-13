@@ -48,43 +48,33 @@ The initial prototype from 2014 for the G4 system consisted of the following par
 ![Prototype G4 hardware set around 2014](../assets/coleman_bundle.png)
 
 
+
+
 A fork of the repository with design files for G4 panels hardware can be found [here](https://github.com/floesche/panels_g4_hardware). Note, the design files for the PCBs use the [kicad EDA](https://kicad-pcb.org/) software suite.
 
 A fork of the source code for the firmware used by the display panels and the demo controller can be found [here](https://github.com/floesche/panels_g4_firmware). 
 
 # Display Panels
 
-A display panel consists of two sub-panel PCBs - the comm (communications) sub-panel and  the driver (display) sub-panel. 
+A display panel consists of two sub-panel PCBs - the comm (communications) sub-panel and the driver (display) sub-panel. The comm panel physically connects the panel to its neighbors such as other panels or the arena board and handles the communication between the neighbors and the driver. The driver holds the LEDs and converts the commands received from the comm panel into LEDs turning on and off.
 
-![Display panels](../assets/display_panels.png)
+![Original G4 panels with two 2×3 PIN connectors](../assets/display_panels.png)
 
 ## Driver Sub-Panels
 
-The driver sub-panel has four atmega328 micro-controllers - one for each 8x8
-display matrix. Each micro-controller on the driver sub-panel is responsible
-for receiving pattern data from the comm sub-panel over I2C and displaying this
-data on its associated LED matrix. The four LED matrices which attach
-to the driver are ordered from  0 to 3 as shown in the image below. 
-
+All G4 driver sub-panels contain 16×16 LED within 40×40mm² area. These LEDs are driven by four ATmega328 microcontroller units (MCU). Newer versions, which as detailed in the [Panel-G4-Hardware](https://github.com/floesche/Panel-G4-Hardware) repository, use one MCU per quadrant of 8×8 LEDs. Besides the limited number of IO lines on these MCUs, it also has historic reasons: Earlier versions used off-the-shelf 20×20mm² matrices with 8×8 LEDs. Each MCU of these panels received the pattern data for that panel and translated it into the on and off signals for the LEDs on the panel. The image below shows the front side of such an early version of the PCB. You can see the silver sockets for mounting the LED matrices and the order in which the LED are counted from 0 to 3. For further details consult the [panels_g4_hardware](https://github.com/floesche/panels_g4_hardware) repository (**note**: this is different from the more recent Panel-G4-Hardware repository mentioned above). The most recent version for the off-the-shelf matrices is inside the `atmega328/four_panel_20mm_matrix/ver4/driver_w_leds` path of the repository. Since at least 2017 we recommend using the newer custom made driver sub-panels as they allow better control over the color spectrum and the position of the LEDs.
 
 ![driver sub-panel](../assets/atmega_driver_front.png)
 
-[download PCB Schematic](../assets/driver.pdf)
-
 ## Comm Sub-Panels
 
-The comm sub-panel contains a single atmega328 micro-controller which
-communicates with the display controller over SPI. The comm sub-panel's sole
-resposibility is to receive pattern data from the controller (via SPI) and
-send it on to the driver sub-panel (via I2C). 
+The comm sub-panel contains a single atmega328 micro-controller which communicates with the display controller over SPI. The comm sub-panel's sole responsibility is to receive pattern data from the controller (via SPI) and send it on to the driver sub-panel (via I2C). Version v0.3 is the latest version of the panel, which is suitable for the custom driver panel. The latest version of the comm sub-panel is available at the [panels_g4_hardware](https://github.com/floesche/panels_g4_hardware/tree/master/atmega328/four_panel/20mm_matrix/ver3/driver) repository inside the `atmega328/four_panel/20mm_matrix/ver3/driver` directory.
 
-![Comm sub-panel](../assets/atmega_comm_front.png)
-
-[download PCB Schematic](../assets/comm.pdf)
+![Comm sub-panel with two 2×3 connectors](../assets/atmega_comm_front.png)
 
 # Arena
 
-## Test Arena 
+## Test Arena
 
 The test arena is used to connect the panels with the controller and to supply
 power to the panels. There are three headers which can be used to connect the
@@ -102,24 +92,20 @@ There are 5 sets of jumpers which can be used to configure the arena.  (**TODO**
 
 [download Arena PCB Schematic](../assets/arena.pdf)
 
-# Demo Controller
+# Controller
 
-A demonstration controller, based on an Arduino Uno, is provided with the arena
-and panels.  The demonstration controller connects to header P22 on the arena and will
-display a moving stripe pattern in 16-level gray scale mode.  The panels (up to
-four) should be connected to header P1 when using the demo controller. 
-Note, the demo controller requires 5V power via the USB connector on the
-Arduino Uno in order to operate.
+## Computer based controller
+
+In newer installations, the [National Instrument PCIe-7842R card](https://www.ni.com/en-us/support/model.pcie-7842.html) takes the role of the controller. This is a FPGA based reconfigurable high speed IO device which can deliver the required multiple SPI channels within the anticipated time constraints. In addition, a connected breakout box allows easy recording several analog data channels through the same device that is used to record other exerimental data.
+
+## Prototype Controller
+
+A demonstration controller, based on an Arduino Uno, is provided with the arena and panels. The demonstration controller connects to header P22 on the arena and will display a moving stripe pattern in 16-level gray scale mode.  The panels (up to four) should be connected to header P1 when using the demo controller. Note, the demo controller requires 5V power via the USB connector on the Arduino Uno in order to operate.
 
 ![Demo controller](../assets/demo_controller.png)
 
-A video of the demo controller connected to the test arena and displaying the moving stripe pattern is shown below. 
+# Power Supply
 
-# 5V Power Supply
+A 5V 1A power supply is provided with the prototype panels, arena and controller. This supply is sufficient for operating roughly four panels - so enough for running the demo controller.  A higher current supply will likely be required in order to operate more than four panels. When selecting a power supply roughly 0.25A should be budgeted for each panel.  The connector is a 2.1mm DC jack and the supply should be center positive.
 
-A 5V 1A power supply is provided with the prototype panels, arena and
-controller. This supply is sufficient for operating roughly four panels - so
-enough for running the demo controller.  A higher current supply will likely be
-required in order to operate more than four panels. When selecting a power
-supply roughly 0.25A should be budgeted for each panel.  The connector is a
-2.1mm DC jack and the supply should be center positive.
+For an arena with 4×12=48 panel, a [5V 10A](https://www.adafruit.com/product/658) worked well in most applications.
