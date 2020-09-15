@@ -47,13 +47,6 @@ The initial prototype from 2014 for the G4 system consisted of the following par
 
 ![Prototype G4 hardware set around 2014](../assets/coleman_bundle.png)
 
-
-
-
-A fork of the repository with design files for G4 panels hardware can be found [here](https://github.com/floesche/panels_g4_hardware). Note, the design files for the PCBs use the [kicad EDA](https://kicad-pcb.org/) software suite.
-
-A fork of the source code for the firmware used by the display panels and the demo controller can be found [here](https://github.com/floesche/panels_g4_firmware). 
-
 # Display Panels
 
 A display panel consists of two sub-panel PCBs - the comm (communications) sub-panel and the driver (display) sub-panel. The comm panel physically connects the panel to its neighbors such as other panels or the arena board and handles the communication between the neighbors and the driver. The driver holds the LEDs and converts the commands received from the comm panel into LEDs turning on and off.

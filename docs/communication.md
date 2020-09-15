@@ -2,7 +2,7 @@
 title: Panel Communication
 parent: Setup
 grand_parent: Generation 4
-nav_order: 2
+nav_order: 10
 ---
 
 # SPI and I2C Communications
