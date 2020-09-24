@@ -30,7 +30,72 @@ The main differences to the [Generation 3](/Generation 3) are the size of the pa
 
 Technically, the displays now show synchronous controller driven updates, which means that patterns are only shown when the controller is sending data. 
 
-This data transfer regime is possible since the communication between the controller and the panel changed to  Serial Peripheral Interface (SPI) from the previously used I²C in the previous generations. 
+This data transfer regime is possible since the communication between the controller and the panel changed to  Serial Peripheral Interface (SPI) from the previously used I²C in the previous generations.
 
+The location of panels within the arena are defined by its position in the setup. Previous generations required that individual panels would be pre-programmed for a location within the setup. In G4, the address of each panel is defined by the column and the position within the column. Learn more details about this in the [subsection about placeholders](#placeholder).
+
+# Hardware
+
+Some parts of the G4 Modular LED Display needs to be produced, some can be bought. This website contains detailed information about the parts you need to produce and we provide example links to where you can buy the other parts. The picture below shows some examples for parts you can get.
+
+![example parts](../assets/G4_hardware-overview.jpg)
+
+## Produce
+
+Producing PCBs takes time. A typical turn-around time for assemblers from the moment they receive the files to the moment you receive the hardware is one month. Over time and between manufacturers the production process differs. Manufacturers adjust the provided files, which sometimes means that the same set of files produce more or less reliable results between batches. If you are thinking about producing larger volume of either board, we strongly recommend running a smaller batch and thoroughly test that hardware. Once you have verified the results, order a larger volume from the same manufacturer. At each step of the process, try to get the files from the manufacturer that they used to produce your batch.
+
+Please also let us know about your experiences and send us the files you sent to the manufacturers and the feedback you received from them. We have incorporated all previous feedback in the files we provide in our repositories to improve the quality of files. Over these iterations we hope to speed up the process and reduce possible errors and pitfalls in the design and the production of the hardware.
+
+### Panel Placeholder PCB
+{:#placeholder}
+
+This PCB acts as a drop-in replacement for panels within a column. It has a cut out of 35×21mm² which you can use to point a camera or other device through that column. In most cases this is not needed, yet it is the most simple and cheap PCB you can get produced from the G4 system. So if you haven't had any experience with the process of ordering PCBs, you might want to start here.
+
+![test](../assets/Panel_connection_skip.jpg){:.ifr}
+
+Technically, each comm uses four of its connectors as "chip select" lines. This means, while the first chip select line is active, the comm board splits and forwards the received data to the driver board. Independently, the data is always forwarded to the next panel. In addition, the comm board drops the first chip select line from the input and makes the second input chip select line the first output chip select, the 3rd becomes second, and the fourth the 3rd output. This way, upt to four stacked panel PCB can be addressed individually.
+
+If you want to skip a panel within a column, you will need to connect the chip select lines accordingly. The image on the right shows which input and output connectors your want to connect. Note, that the signal is travelling from the bottom to the top. This has often been done with wires.
+
+![](../assets/comm_placeholder_bottom_photo.jpg){:.ifr}
+Alternatively you can use the placeholder PCB to achieve the same. The PCB has the same outer dimensions and same connectors as the Comm PCB and provides the wiring described above between input and output.
+{:.clear}
+
+The design files for this simple 2-layer PCB are in the [panels_g4_hardware](https://github.com/floesche/panels_g4_hardware/tree/master/placeholder) repository inside the `placeholder` directory. The design was done in [KiCAD](https://kicad-pcb.org/). The files ready for production are inside the `placeholder/production_v0` folder. Most recently [placeholder-v0.2](https://github.com/floesche/panels_g4_hardware/blob/master/placeholder/production_v0/placeholder_v0p2.zip) uses length matched traces. All you need to order this design is the zip file, which contains the relevant files from the directory, and most manufacturers will accept. So far we have ordered this exact design from [OSHPark](https://oshpark.com/) with a quick turn-around time of around 5 days and a total cost of $10 per board, including components. With enough lead time, higher quantities, and other manufacturers the price should be around $1 per unit.
+
+The placeholder might be a good start to familiarize yourself with file types, the organization of our repositories, and the whole production process, if you have never done that before. Otherwise please apologize the boring details in the text above.
+
+### Panel Comm PCB
+{:.clear}
+
+The G4 panels consist of two PCBs, the "Comm PCB" that ensures communication with the arena and neighboring panels, and the "Driver PCB" with all the LEDs.
+
+The "Comm PCB" is comparably simple. 
+
+### Panel Driver PCB
+
+### Arena PCB
+
+### Arena Interconnect PCB
+
+- G4 Panel boards consisting of
+  - Driver PCB with LEDs
+  - Communication PCB with connectors
+- G4 Arena board
+  - a full cylinder formed by 12 columns (the 12-12 board) or
+  - a open cylinder where 12 of 18 possible columns are populated (the 12-18 board)
+- Interconnect board
+- Placeholder
+
+## Buy
+
+- Windows PC
+- National Instruments PCIe-7842R PCI
+- VHDCI cables
+  - 1× SHC68-68-RDIO
+  - 1× SHC68M-68F-RMIO
+- National Instruments Breakout Box
+- 5V Desktop power supply
+  - depends on your setup, in most cases a [5V 10A like this one](https://www.adafruit.com/product/658) is OK
 
 {::comment}TODO: add HARDWARE section. Maybe move parts from gs?{:/comment}
