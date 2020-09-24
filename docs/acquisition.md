@@ -1,7 +1,8 @@
 ---
-title: Aquisition
+title: Acquisition
 parent: Generation 4
 nav_order: 1
+has_children: true
 ---
 
 Here we describe what is needed to operate a Modular LED Display of the 4th generation. The first part concerns the knowledge necessary to make the decisions for hardware acquisition in the second part.
@@ -16,13 +17,11 @@ Fundamentally, G4 is about turning a light source on and off, possibly at differ
 
 To understand the working principle in more detail, here a step through from the users' side: Using convenient tools like the Display Tools, you can define stimuli you wan to show. This description of the stimuli is sent to the "G4 Host", another application running in the computer background. When starting the G4 Host, this software automatically programs the specialized I/O card for high throughput and low latency communication with the arena. This PCIe card is a Field-Programmable Gate Array (FPGA) and is used by the G4 system to generate four different SPI communication channels. Once the G4 Host receives a command containing a stimuli description, the PCIe card sends these signals to the arena. The arena then splits the four SPI channels top the different columns. The columns consist of panels consisting of two separate boards: The communication board connected to the arena board and the adjacent panels, and the driver board with all the LEDs. The communication board has a microcontroller unit (MCU) that receives the incoming SPI signal, filtering for signals meant for this specific panel, and then forwards this signal to one of four connectors to the driver board. On the driver board, each of the connectors has its own MCU, which then translates the signal into corresponding on/off signals for the LEDs. The five MCUs per panel need to be preprogrammed before assembly to operate correctly. But we will come back to each of those points during the assembly.
 
-
 ## Capabilities
 
 The G4 displays can show 16-bit stimuli with up to 500Hz and 1500Hz for purely turning them on and off. Different forms of arena boards can be used to place the 40×40mm² panels, each with 16×16 LEDs in columns up to 4 panels in height. An arena can drive up to 12 columns.
 
 While the complexity and capability of the G4 displays have increased over previous generations, they are more accessible and easy to use through a set of advanced software tools. These "Display Tools" can be used to defined patterns and movements, arrange them into complex experimental protocols, and run data analysis on the results. These easy to use GUIs modify script which can be further customized by advanced users, should the experimental requirements go beyond what the current set of "Display Tools" supports.
-
 
 ## Difference to Generation 3
 
@@ -46,31 +45,7 @@ Producing PCBs takes time. A typical turn-around time for assemblers from the mo
 
 Please also let us know about your experiences and send us the files you sent to the manufacturers and the feedback you received from them. We have incorporated all previous feedback in the files we provide in our repositories to improve the quality of files. Over these iterations we hope to speed up the process and reduce possible errors and pitfalls in the design and the production of the hardware.
 
-### Panel Placeholder PCB
-{:#placeholder}
 
-This PCB acts as a drop-in replacement for panels within a column. It has a cut out of 35×21mm² which you can use to point a camera or other device through that column. In most cases this is not needed, yet it is the most simple and cheap PCB you can get produced from the G4 system. So if you haven't had any experience with the process of ordering PCBs, you might want to start here.
-
-![test](../assets/Panel_connection_skip.jpg){:.ifr}
-
-Technically, each comm uses four of its connectors as "chip select" lines. This means, while the first chip select line is active, the comm board splits and forwards the received data to the driver board. Independently, the data is always forwarded to the next panel. In addition, the comm board drops the first chip select line from the input and makes the second input chip select line the first output chip select, the 3rd becomes second, and the fourth the 3rd output. This way, upt to four stacked panel PCB can be addressed individually.
-
-If you want to skip a panel within a column, you will need to connect the chip select lines accordingly. The image on the right shows which input and output connectors your want to connect. Note, that the signal is travelling from the bottom to the top. This has often been done with wires.
-
-![](../assets/comm_placeholder_bottom_photo.jpg){:.ifr}
-Alternatively you can use the placeholder PCB to achieve the same. The PCB has the same outer dimensions and same connectors as the Comm PCB and provides the wiring described above between input and output.
-{:.clear}
-
-The design files for this simple 2-layer PCB are in the [panels_g4_hardware](https://github.com/floesche/panels_g4_hardware/tree/master/placeholder) repository inside the `placeholder` directory. The design was done in [KiCAD](https://kicad-pcb.org/). The files ready for production are inside the `placeholder/production_v0` folder. Most recently [placeholder-v0.2](https://github.com/floesche/panels_g4_hardware/blob/master/placeholder/production_v0/placeholder_v0p2.zip) uses length matched traces. All you need to order this design is the zip file, which contains the relevant files from the directory, and most manufacturers will accept. So far we have ordered this exact design from [OSHPark](https://oshpark.com/) with a quick turn-around time of around 5 days and a total cost of $10 per board, including components. With enough lead time, higher quantities, and other manufacturers the price should be around $1 per unit.
-
-The placeholder might be a good start to familiarize yourself with file types, the organization of our repositories, and the whole production process, if you have never done that before. Otherwise please apologize the boring details in the text above.
-
-### Panel Comm PCB
-{:.clear}
-
-The G4 panels consist of two PCBs, the "Comm PCB" that ensures communication with the arena and neighboring panels, and the "Driver PCB" with all the LEDs.
-
-The "Comm PCB" is comparably simple. 
 
 ### Panel Driver PCB
 
