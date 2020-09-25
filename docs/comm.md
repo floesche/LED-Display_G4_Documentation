@@ -2,21 +2,21 @@
 title: Comm Board
 parent: Acquisition
 grand_parent: Generation 4
-nav_order: 1
+nav_order: 5
 ---
 
 # Communication PCB
 
-The communication PCB or "comm board" measures 40×40mm² and has a 15 pin connector on the bottom and a matching socket on the top edge. This board extracts data packets for the current panel from the SPI stream and sends them via I²C to the driver board. The connectors always need to be connected to either a adjacent comm board or an arena.
+The communication PCB or "comm board" measures 40×40mm² and has a 15 pin connector on the bottom and a matching socket on the top edge. In addition, there are four 4×4 female sockets ([v0.3](#commv0p3)) or two 3×6 male pins ([v0.2](#comm-v0p2)) on the top side of the PCB. This board extracts data packets for the current panel from the SPI stream and sends them via I²C to the driver board. The connectors always need to be connected to either a adjacent comm board or an arena.
 
 ![test](../assets/Panel_connection_skip.jpg){:.ifr}
 
 To identify packets for the current panel, each comm uses four of its connectors as "chip select" lines. This means, while the first chip select line is active, the comm board splits and forwards the received data to the driver board. Independently, the data is always forwarded to the next panel. In addition, the comm board drops the first chip select line from the input and makes the second input chip select line the first output chip select, the 3rd becomes second, and the fourth the 3rd output. This way, up to four stacked panel PCB can be addressed individually.
 
-While the chip select line is active for the current panel, a micro controller unit (MCU) splits the incoming signal into smaller chunks. The driver boards are usually divided into quadrants, and the comm board forwards the matching data packages to the quadrants via I²C bus. The change of protocol has historic reasons. Most recent [comm boards v0.3](#commv0p3) use four connectors for the driver board, earlier versions had only two.
+While the chip select line is active for the current panel, a micro controller unit (MCU) splits the incoming signal into smaller chunks. The driver boards are usually divided into quadrants, and the comm board forwards the matching data packages to the quadrants via I²C bus. The change of protocol has historic reasons. Most recent [comm boards v0.3](#comm-v0p3) use four connectors for the driver board, earlier versions had only two.
 
 ## Panel Comm PCB v0.3
-{:#commv0p3 .clear}
+{:#comm-v0p3 .clear}
 
 ![A rendering of the communication board](../assets/comm_v0.3_top_render.jpg){:.ifr}
 
@@ -34,6 +34,12 @@ The files are inside the [panels_g4_hardware](https://github.com/floesche/panels
 
 The design files are shared under a creative commons license as [KiCAD](https://kicad-pcb.org/) EDA source files. They were initially developed by [IORodeo](https://iorodeo.com). If you open the schematics in a current version of KiCAD you will be asked to remap the symbols when you first open the files.
 
+### Production
+
+The Comm board v0.3 is a two layer PCB with 1oz copper that has no special requirements on the production process. We typically order them on the default FR-4. The board has through-hole components such as the connectors, but the majority of components are SMD with the smallest package of 0603 (imperial) or 1608 (metric).
+
+For an order volume of 150 pieces we would expect prices around $16 for the assembled board. This might be around $1.50 for the board, $8 for the components, $6 for the assembly, and $.50 for shipping. Recently we have had good experiences with [Bittele](https://www.7pcb.com/).
+
 ## Panel Placeholder PCB
 {:#placeholder}
 
@@ -50,9 +56,19 @@ The design files for this simple 2-layer PCB are in the [panels_g4_hardware](htt
 
 The placeholder might be a good start to familiarize yourself with file types, the organization of our repositories, and the whole production process, if you have never done that before. Otherwise please apologize the boring details in the text above.
 
-### Panel Comm PCB
-{:#comm .clear}
+# Historic designs
 
-The G4 panels consist of two PCBs, the "Comm PCB" that ensures communication with the arena and neighboring panels, and the "Driver PCB" with all the LEDs.
+These designs are kept for historic reasons and to debug existing systems. If you have one of them, you probably know what to do and just need the files. If you are building a new system, don't use them.
 
-The "Comm PCB" is comparably simple. 
+## Panel Comm PCB v0.2
+{:#comm-v0p2 .clear}
+
+![A picture of the assembled comm board v0.2](../assets/comm_v0.2_top_photo.jpg){:.ifr}
+
+This is only relevant if you have an older G4 setup where the driver boards have two 2×3 pin connectors and the female side of the connectors on the driver board. Similarly to the v0.3, the design files are on the [panel_g4_hardware](https://github.com/floesche/panels_g4_hardware/tree/master/atmega328/four_panel/20mm_matrix/ver2/comm) repository.
+
+Everything else regarding design and production is very similar to the [Comm board v0.3](#comm-v0p3). There is no reason to build a comm board v0.2, except maybe replacing a broken one. Even then you might consider an upgrade of your hardware instead.
+
+## Panel Comm PCB v0.1
+
+The [panel_g4_hardware](https://github.com/floesche/panels_g4_hardware/tree/master/atmega328/four_panel/20mm_matrix/ver1/comm) repository contains an earlier comm board. This uses a different communication protocol and is not compatible with drivers-v0.2 and up. The files are there, should you need to repair your existing system with [driver-v0.1](./driver.md#driver-v0p1).

@@ -41,13 +41,12 @@ Some parts of the G4 Modular LED Display needs to be produced, some can be bough
 
 ## Produce
 
-Producing PCBs takes time. A typical turn-around time for assemblers from the moment they receive the files to the moment you receive the hardware is one month. Over time and between manufacturers the production process differs. Manufacturers adjust the provided files, which sometimes means that the same set of files produce more or less reliable results between batches. If you are thinking about producing larger volume of either board, we strongly recommend running a smaller batch and thoroughly test that hardware. Once you have verified the results, order a larger volume from the same manufacturer. At each step of the process, try to get the files from the manufacturer that they used to produce your batch.
+Producing PCBs takes time. A typical turn-around time for assemblers from the moment they receive the files to the moment you receive the hardware is one month. Over time and between manufacturers the production process differs. Manufacturers adjust the provided files, which sometimes means that the same set of files produce more or less reliable results between batches. If you are thinking about producing larger volume of either board, we strongly recommend running a smaller batch and thoroughly test that hardware. Once you have verified the results, order a larger volume from the same manufacturer. At each step of the process, try to get the files from the manufacturer that they used to produce your batch for your own reference and for ordering replacements and new systems later. 
 
 Please also let us know about your experiences and send us the files you sent to the manufacturers and the feedback you received from them. We have incorporated all previous feedback in the files we provide in our repositories to improve the quality of files. Over these iterations we hope to speed up the process and reduce possible errors and pitfalls in the design and the production of the hardware.
 
+To get a system up and running, you will need to decide how many panels you will need for your experiments. While the panels can be arranged in a 4×12 setup, debugging the hardware will get complicated after 
 
-
-### Panel Driver PCB
 
 ### Arena PCB
 
