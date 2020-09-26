@@ -7,7 +7,7 @@ nav_order: 1
 
 # Driver PCB
 
-The driver board measures 40×40mm² and has four 4×4 male pins (>=v0.3) or two 2×6 female sockets (v0.2) on the bottom layer. The top of the driver board is either covered in LEDs (>=v1.0) or has connectors to commodity LED matrices. 
+The driver board measures 40×40mm² and has four 4×4 male pins (>=v0.3) or two 2×6 female sockets (v0.2) on the bottom layer. The top of the driver board is either covered in LEDs (>=v1.0) or has connectors to off-the-shelf LED matrices. 
 
 Internally the board is divided into four quadrants, each of which receives data through the connector via the I²C protocol. Each quadrant has a micro controller unit (MCU) that translates the incoming signals into turing the LEDs on and off.
 
@@ -38,6 +38,7 @@ The Panel Driver PCBs are built from 6 layers. The BOTTOM layer contains all LED
 These designs are kept for historic reasons and to debug existing systems. If you have one of them, you probably know what to do and just need the files. If you are building a new system, don't use them.
 
 ## Panel Driver PCB 1.0 to 1.1
+{:#driver-v0 .clear}
 
 ![Driver version 1.0](../assets/driver_v1.0_top_photo.jpg){:.ifr}
 
@@ -49,7 +50,7 @@ There are many similarities between the first iterations of driver-v1. You can s
 
 ![driver version 0.4 without LEDs](../assets/driver_v0.4_front.jpg){:.ifr}
 
-Earlier versions of the driver were designed for commodity LED matrices. Historically this is what has been used in Generation 3 LED arenas and before as well. The latest version of the commodity LED matrices version, which is designed for four 20×20mm² components, is [driver-v0.4.2](https://github.com/floesche/panels_g4_hardware/tree/master/atmega328/four_panel/20mm_matrix/ver4/driver). You can find the driver designs of earlier versions in the same repository by navigating a few directories up.
+Earlier versions of the driver were designed for off-the-shelf LED matrices. Historically this is what has been used in Generation 3 LED arenas and before as well. The latest version of the off-the-shelf LED matrices version, which is designed for four 20×20mm² components, is [driver-v0.4.2](https://github.com/floesche/panels_g4_hardware/tree/master/atmega328/four_panel/20mm_matrix/ver4/driver). You can find the driver designs of earlier versions in the same repository by navigating a few directories up.
 
 
 ![driver version 0.2, 0.3, or 0.4 with LEDs](../assets/driver_v0.2_matrix_photo.jpg){:.ifr}

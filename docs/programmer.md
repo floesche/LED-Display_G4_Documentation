@@ -15,6 +15,7 @@ The use of the programmer will be explained in more detail in another section, b
 {::comment}TODO: Add images with of what programming looks like{:/comment}
 
 ## Arduino shield
+{:#arduino}
 
 ![A rendering of the Arduino shield](../assets/arduino_shield_render.jpg){:.ifr}
 
@@ -25,7 +26,7 @@ The Arduino programming shield measures 72.39×53.34mm². The gerber files and a
 The basic functionality of the Arduino shield is to convert the signals from the Arduino connectors on the side the ribbon connector (P1).
 
 ## Driver board shield
-{:.clear}
+{:#driver .clear}
 
 ![A rendering of the driver board programmer](../assets/driver_shield_render.jpg){:.ifr}
 
@@ -37,9 +38,8 @@ The most recent version of the production files is [version v0.3](https://github
 
 The shield adapts the signal from the ribbon connector (P4) to the four driver board connectors (P0…P3), while also powering the driver board during programming (P5). The switch (S1) allows to select which driver MCU will be programmed (usually all 4 are on).
 
-
 ## Comm board shield
-{:.clear}
+{:#comm .clear}
 
 ![A rendering of the communication board programmer](../assets/comm_shield_render.jpg){:.ifr}
 

@@ -1,9 +1,11 @@
 ---
 title: Panel Communication
-parent: Setup
+parent: Troubleshoot
 grand_parent: Generation 4
-nav_order: 10
+nav_order: 1
 ---
+
+This document contains some technical details that might be helpful in finding problems for the communication between controller and the two panel PCBs.
 
 # SPI and I2C Communications
 
